@@ -51,22 +51,14 @@ function cpi_articulos_init()
         'labels'                => $labels,
         'description'           => 'Administra los Artículos del Portal',
         'public'                => true,
-        //'publicly_queryable'    => true,
-        //'exclude_from_search'   => false,
-        //'show_ui'               => true,
         'capability_type'       => 'articulo',
         'capabilities'          => $caps,
-        //'hierarchical'          => true,
-        'supports'              => array('title','editor','author','thumbnail','excerpt','custom-fields','revisions'),
-        //'register_meta_box_cb ' => '',
-        //'taxonomies'            => '',
+        'taxonomies'            => array('category','post_tag',),
+        'supports'              => array('title', 'editor', 'thumbnail','excerpt'),
         'menu_position'         => 3,
-        //'menu_icon'             => '',
-        //'permalink_epmask'      => '',
         'rewrite'               => true,
         'query_var'             => 'articulos',
         'can_export'            => true,
-        //'show_in_nav_menus '    => true,
         'rewrite'               => true
     ); 
    
@@ -76,6 +68,7 @@ function cpi_articulos_init()
 /*
 *   Registrando categorias para familias de Articulos
 */
+/*
     $labels_fam = array(
         'name'              => 'Familia',
         'singular_name'     => 'Familias',
@@ -98,10 +91,11 @@ function cpi_articulos_init()
         'rewrite'       => true
     ));
 
-
+*/
 /*
 *   Registrando categorias para Temas y Perfiles
 */
+/*
     $labels_temper = array(
         'name'              => 'Temas y Perfiles',
         'singular_name'     => 'Temas y Perfiles',
@@ -123,72 +117,14 @@ function cpi_articulos_init()
         'query_var'     => true,
         'rewrite'       => true
     ));
-    
-    
-    
-/*
-*   Registrando Etiquetas para Temas Asociados
 */
-    $labels_tema = array(
-        'name'                      => 'Temas Asociados',
-        'singular_name'             => 'Tema Asociado',
-        'search_items'              => 'Buscar Temas Asociados',
-        'popular_items'             => 'Temas Más Usados',
-        'all_items'                 => 'Todos los Temas',
-        'parent_item'               => null,
-        'parent_item_colon'         => null,
-        'edit_item'                 => 'Editar Tema Asociado', 
-        'update_item'               => 'Actualizar Tema Asociado',
-        'add_new_item'              => 'Agregar Tema Asociado',
-        'new_item_name'             => 'Nuevo Tema Asociado',
-        'separate_items_with_commas' => 'Agrege temas separados por comas',
-        'add_or_remove_items'       => 'Agregar o Borrar Temas',
-        'choose_from_most_used'     => 'Elija alguno de los Temas más usados',
-        'menu_name'                 => 'Temas Asociados'
-    ); 
 
-    register_taxonomy('temas','articulos',array(
-        'hierarchical'  => false,
-        'labels'        => $labels_tema,
-        'show_ui'       => true,
-        'query_var'     => true,
-        'rewrite'       => true
-    ));
-    
-/*
-*   Registrando etiquetas para Perfiles
-*/
-    $labels_perfil = array(
-        'name'                      => 'Perfiles',
-        'singular_name'             => 'Perfil',
-        'search_items'              => 'Buscar Perfil',
-        'popular_items'             => 'Perfiles Más Usados',
-        'all_items'                 => 'Todos Los Perfiles',
-        'parent_item'               => null,
-        'parent_item_colon'         => null,
-        'edit_item'                 => 'Editar Pefil', 
-        'update_item'               => 'Actualizar Perfil',
-        'add_new_item'              => 'Agregar Nuevo Perfil',
-        'new_item_name'             => 'Nuevo Nombre de Perfil',
-        'separate_items_with_commas' => 'Agrege perfiles separados por comas',
-        'add_or_remove_items'       => 'Agregar o Remover Perfiles',
-        'choose_from_most_used'     => 'Elija uno de los perfiles más usados',
-        'menu_name'                 => 'Perfiles'
-    ); 
-
-    register_taxonomy('perfiles','articulos',array(
-        'hierarchical'  => false,
-        'labels'        => $labels_perfil,
-        'show_ui'       => true,
-        'query_var'     => true,
-        'rewrite'       => true
-    ));
-    
-    
+     
     /**
      * Se da de alta los Temas y Perfiles por Defecto
      *         
      */
+     /*
     $temasperfiles = array(                
         'indigenas'         => 'Indígenas',  
         'jovenes'           => 'Jóvenes',
@@ -222,7 +158,11 @@ function cpi_articulos_init()
                 'parent'=> ''
             ));
         }
-    }   
+    }
+
+    */
+
+       
 }
   
 // }}}
@@ -240,9 +180,17 @@ function add_articulo_cap() {
     $admin_art->add_cap('author', 'publish_articulos');
     $admin_art->add_cap('author', 'read_articulo');
     $admin_art->add_cap('author', 'read_private_articulos');
-    $admin_art->add_cap('author', 'delete_articulo');    
+    $admin_art->add_cap('author', 'delete_articulo'); 
+    
+    // Tambien se deben dar permisos al administrador a todo
+    $admin_art->add_cap('administrator', 'edit_articulo');
+    $admin_art->add_cap('administrator', 'edit_articulos');
+    $admin_art->add_cap('administrator', 'edit_others_articulos');
+    $admin_art->add_cap('administrator', 'publish_articulos');
+    $admin_art->add_cap('administrator', 'read_articulo');
+    $admin_art->add_cap('administrator', 'read_private_articulos');
+    $admin_art->add_cap('administrator', 'delete_articulo');    
     
 }  
-
 
 // }}}
