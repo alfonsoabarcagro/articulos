@@ -9,6 +9,8 @@ Version: 1.0.0
 Author URI: http://guerrero.gob.mx/
 */
 
+include_once ( 'functions.php' );
+
 
 // Creamos el tipo de datos llamado Articulos
 add_action('init', 'cpi_articulos_init');
