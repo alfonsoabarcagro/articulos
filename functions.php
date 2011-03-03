@@ -39,29 +39,17 @@ function articulos_recientes()
  * @return array Devuelve un arreglo de Objetos
  */
 function  articulos_find( $id = NULL )
-{
-    $id_array = explode(",", $id);
-    $total_ids = count($id_array);
-     
-    if ( $id == NULL ){ // Si no se indico ningun ID devuelve todos los articulos   
-        $args = array(
-            'orderby'         => 'post_date',
-            'order'           => 'DESC',
-            'post_type'       => 'articulos',
-            'post_status'     => 'publish' 
-        );
-        $articulos = get_posts( $args );  
-          
-    }else if( $total_ids == 1 ){ // Si indico solo un ID devuelve el articulo correspondiente
-        $articulos[1] = get_post( $id_array[0] );
+{   
+    $args = array(
+        'orderby'       => 'post_date',
+        'order'         => 'DESC',
+        'post_type'     => 'articulos',
+        'post_status'   => 'publish',
+        'include'       => $id   
         
-    }else{ // Si se indicaron varios IDs separados por coma devuelve los articulos correspondientes
-        $i = 0;
-        foreach ($id_array as $id_temp){
-            $i++;
-            $articulos[$i] = get_post( $id_temp );
-        } 
-    }
+    );
+    
+    $articulos = get_posts( $args );      
     
     return $articulos;
 }
