@@ -5,14 +5,14 @@
 /**
  * articulos_recientes()
  *                                       
- * @return  object $articulos
+ * @return  array   $articulos  Arreglo de Ojetos
  */
  
 function articulos_recientes()
 {
 
     $args = array(
-        'numberposts'     => 2,
+        'numberposts'     => 5,
         'orderby'         => 'post_date',
         'order'           => 'DESC',
         'post_type'       => 'articulos',
@@ -26,7 +26,39 @@ function articulos_recientes()
 
 // }}}
 // {{{
+    
+    
+/**
+ * articulos_x_temayperfil()    Devuelve un arreglo de objetos de los articulos pertenecientes al tema o perfil indicados
+ *                              
+ *              - Si no especifica un tema o perfil devuelve todos los articulos
+ *              - Si especifica varios temas separados por coma devuelve los articulos correspondientes ordenados por fecha
+ *            
+ * 
+ * @param   string  $catego     Cadena con el Slug de la Categoría (Tema o Perfil)
+ * @return  array   $articulos  Arreglo de Objetos con los articulos encontrados
+ */
+function articulos_x_temayperfil( $catego = NULL )
+{
 
+    $args = array(
+        'orderby'           => 'post_date',
+        'order'             => 'DESC',
+        'post_type'         => 'articulos',
+        'post_status'       => 'publish',
+        'category_name'     => $catego  
+    );
+    $articulos = get_posts( $args );
+    
+    return $articulos;
+
+} 
+
+
+// }}}
+// {{{
+    
+    
 /**
  * articulos_find()     Encuentra el o los posts idicados por el ID y devuelve un arreglo de objetos 
  *                      cada objeto hace referencia a los articulos solicitados por el ID 
@@ -35,8 +67,8 @@ function articulos_recientes()
  *      - si lleva varios ID separados por coma, regresa los indicados
  *      - si lleva un id, solo ese articulo
  * 
- * @param string $id  IDs Separados por Coma en caso de ser varios
- * @return array Devuelve un arreglo de Objetos
+ * @param   string  $id         IDs Separados por Coma en caso de ser varios
+ * @return  array   $articulos  Arreglo de Ojetos
  */
 function  articulos_find( $id = NULL )
 {   
@@ -59,7 +91,7 @@ function  articulos_find( $id = NULL )
     
 function articulos_delete( $id )
 {
-    // Retorna un mensaje de confrmación si elimino o no el articulo 
+    //Elimina todos los rastros del articulos
 }
 
 // }}}
